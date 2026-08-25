@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{% block title %}Contact{% endblock %}
+
+
+{% block content %}
+
+
+<section class="page-head">
+   <div class="wrap">
+       <span class="eyebrow rise">Get in touch</span>
+       <h1 class="rise" style="--d:.1s">Say <span class="grad-text">hello</span></h1>
+       <p class="lead rise" style="--d:.2s">
+           Questions about the project or the data? Drop a message below.
+       </p>
+   </div>
+</section>
+
+
+<section class="section">
+   <div class="wrap">
+
+       <div class="panel form-card reveal">
+
+           <form>
+               <div class="form-grid">
+
+                   <div class="field">
+                       <label>Name</label>
+                       <input type="text" placeholder="Enter your name">
+                   </div>
+
+                   <div class="field">
+                       <label>Email</label>
+                       <input type="email" placeholder="Enter your email">
+                   </div>
+
+               </div>
+
+               <div class="field" style="margin-bottom:22px;">
+                   <label>Message</label>
+                   <textarea rows="5" placeholder="Type your message"></textarea>
+               </div>
+
+               <button type="button" class="btn" style="width:100%; justify-content:center;">
+                   Send Message
+               </button>
+
+           </form>
+
+       </div>
+
+   </div>
+</section>
+
+
+{% endblock %}

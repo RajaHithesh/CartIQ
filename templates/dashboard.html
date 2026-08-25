@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+
+{% block title %}Dashboard{% endblock %}
+
+
+{% block content %}
+
+
+<section class="page-head">
+   <div class="wrap">
+       <span class="eyebrow rise">At a glance</span>
+       <h1 class="rise" style="--d:.1s">Basket <span class="grad-text">dashboard</span></h1>
+       <p class="lead rise" style="--d:.2s">
+           Key numbers from the Instacart dataset, counted up live.
+       </p>
+   </div>
+</section>
+
+
+<section class="section">
+   <div class="wrap">
+
+       <div class="stat-grid">
+
+           <div class="stat reveal" style="--d:.0s">
+               <span class="stat-emoji">🧺</span>
+               <span class="stat-num" data-count="50000">0</span>
+               <span class="stat-label">basket items analyzed</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.08s">
+               <span class="stat-emoji">🔁</span>
+               <span class="stat-num" data-count="59" data-suffix="%">0%</span>
+               <span class="stat-label">of products are reorders</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.16s">
+               <span class="stat-emoji">🏬</span>
+               <span class="stat-num" data-count="21">0</span>
+               <span class="stat-label">departments · 134 aisles</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.24s">
+               <span class="stat-emoji">📦</span>
+               <span class="stat-num" data-count="15.8" data-decimals="1">0</span>
+               <span class="stat-label">average basket size (items)</span>
+           </div>
+
+       </div>
+
+       <div class="placeholder reveal" style="margin-top:26px; --d:.3s;">
+           <span class="ph-icon">📈</span>
+           Model charts will appear here once models are implemented
+       </div>
+
+   </div>
+</section>
+
+
+{% endblock %}

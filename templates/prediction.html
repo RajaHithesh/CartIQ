@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+
+{% block title %}Prediction{% endblock %}
+
+
+{% block content %}
+
+
+<section class="page-head">
+   <div class="wrap">
+       <span class="eyebrow rise">Try it out</span>
+       <h1 class="rise" style="--d:.1s">Basket <span class="grad-text">prediction</span></h1>
+       <p class="lead rise" style="--d:.2s">
+           Describe an order below — the prediction engine will be connected
+           once the machine-learning models are implemented.
+       </p>
+   </div>
+</section>
+
+
+<section class="section">
+   <div class="wrap">
+
+       <div class="panel form-card reveal">
+
+           <form>
+               <div class="form-grid">
+
+                   <div class="field">
+                       <label>Order Number</label>
+                       <input type="number" placeholder="Customer order sequence">
+                   </div>
+
+                   <div class="field">
+                       <label>Day of Week</label>
+                       <select>
+                           <option>Sunday</option>
+                           <option>Monday</option>
+                           <option>Tuesday</option>
+                           <option>Wednesday</option>
+                           <option>Thursday</option>
+                           <option>Friday</option>
+                           <option>Saturday</option>
+                       </select>
+                   </div>
+
+                   <div class="field">
+                       <label>Order Hour of Day</label>
+                       <input type="number" min="0" max="23" placeholder="Hour (0–23)">
+                   </div>
+
+                   <div class="field">
+                       <label>Days Since Prior Order</label>
+                       <input type="number" step="0.1" placeholder="e.g. 7.0">
+                   </div>
+
+                   <div class="field">
+                       <label>Aisle</label>
+                       <select>
+                           <option>fresh fruits</option>
+                           <option>fresh vegetables</option>
+                           <option>packaged vegetables fruits</option>
+                           <option>yogurt</option>
+                           <option>bakery</option>
+                           <option>beverages</option>
+                       </select>
+                   </div>
+
+                   <div class="field">
+                       <label>Department</label>
+                       <select>
+                           <option>produce</option>
+                           <option>dairy eggs</option>
+                           <option>snacks</option>
+                           <option>beverages</option>
+                           <option>frozen</option>
+                           <option>pantry</option>
+                           <option>bakery</option>
+                       </select>
+                   </div>
+
+                   <div class="field">
+                       <label>Add to Cart Order</label>
+                       <input type="number" placeholder="Item position in basket">
+                   </div>
+
+               </div>
+
+               <button type="button" class="btn" style="width:100%; justify-content:center;">
+                   Predict Basket Outcome
+               </button>
+
+               <p class="form-hint">Prediction engine will be wired to the trained models in a later phase.</p>
+
+           </form>
+
+       </div>
+
+   </div>
+</section>
+
+
+{% endblock %}

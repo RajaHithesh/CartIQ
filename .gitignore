@@ -1,0 +1,19 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# OpenWork workspace scaffolding
+.opencode/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+main.py
+
+# Notebooks checkpoints
+.ipynb_checkpoints/

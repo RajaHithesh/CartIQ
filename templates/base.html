@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <title>{% block title %}CartIQ — Grocery Basket Intelligence{% endblock %}</title>
+
+   <script>document.documentElement.classList.add('js');</script>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+   <!-- Animated pastel blob background -->
+   <div class="bg-scene" aria-hidden="true">
+       <span class="blob b1"></span>
+       <span class="blob b2"></span>
+       <span class="blob b3"></span>
+       <span class="blob b4"></span>
+   </div>
+
+   <header class="site-header">
+       <a class="brand" href="{{ url_for('home') }}">
+           <span class="brand-mark">🛒</span>
+           <span class="brand-text">Cart<b>IQ</b></span>
+       </a>
+
+       <nav class="site-nav">
+           <a href="{{ url_for('home') }}"          class="{{ 'active' if request.endpoint == 'home' }}">Home</a>
+           <a href="{{ url_for('about') }}"         class="{{ 'active' if request.endpoint == 'about' }}">About</a>
+           <a href="{{ url_for('dataset') }}"       class="{{ 'active' if request.endpoint == 'dataset' }}">Dataset</a>
+           <a href="{{ url_for('preprocessing') }}" class="{{ 'active' if request.endpoint == 'preprocessing' }}">Preprocessing</a>
+           <a href="{{ url_for('visualization') }}" class="{{ 'active' if request.endpoint == 'visualization' }}">Visualization</a>
+           <a href="{{ url_for('models') }}"        class="{{ 'active' if request.endpoint == 'models' }}">ML Models</a>
+           <a href="{{ url_for('prediction') }}"    class="{{ 'active' if request.endpoint == 'prediction' }}">Prediction</a>
+           <a href="{{ url_for('dashboard') }}"     class="{{ 'active' if request.endpoint == 'dashboard' }}">Dashboard</a>
+           <a href="{{ url_for('reports') }}"       class="{{ 'active' if request.endpoint == 'reports' }}">Reports</a>
+           <a href="{{ url_for('contact') }}"       class="{{ 'active' if request.endpoint == 'contact' }}">Contact</a>
+       </nav>
+   </header>
+
+   <main>
+       {% block content %}{% endblock %}
+   </main>
+
+   <footer class="site-footer">
+       <p><span class="foot-brand">CartIQ</span> — Grocery Market Basket Intelligence</p>
+       <p>© 2026 · Python · Flask · Pandas · Machine Learning</p>
+   </footer>
+
+   <script>
+       (function () {
+           var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+           /* Scroll reveal */
+           var revealEls = document.querySelectorAll(".reveal");
+           if (reduce || !("IntersectionObserver" in window)) {
+               revealEls.forEach(function (el) { el.classList.add("in"); });
+           } else {
+               var io = new IntersectionObserver(function (entries) {
+                   entries.forEach(function (entry) {
+                       if (entry.isIntersecting) {
+                           entry.target.classList.add("in");
+                           io.unobserve(entry.target);
+                       }
+                   });
+               }, { threshold: 0.12 });
+               revealEls.forEach(function (el) { io.observe(el); });
+           }
+
+           /* Count-up numbers for dashboard stats */
+           document.querySelectorAll("[data-count]").forEach(function (el) {
+               var target = parseFloat(el.getAttribute("data-count"));
+               var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+               var suffix = el.getAttribute("data-suffix") || "";
+               var fmt = function (v) {
+                   return v.toLocaleString(undefined, {
+                       minimumFractionDigits: decimals,
+                       maximumFractionDigits: decimals
+                   }) + suffix;
+               };
+               if (reduce) { el.textContent = fmt(target); return; }
+               var duration = 1500;
+               var start = null;
+               function tick(t) {
+                   if (!start) start = t;
+                   var p = Math.min(1, (t - start) / duration);
+                   var eased = 1 - Math.pow(1 - p, 3);
+                   el.textContent = fmt(target * eased);
+                   if (p < 1) requestAnimationFrame(tick);
+               }
+               requestAnimationFrame(tick);
+           });
+       })();
+   </script>
+
+</body>
+</html>

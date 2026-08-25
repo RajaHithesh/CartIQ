@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block title %}Reports{% endblock %}
+
+
+{% block content %}
+
+
+<section class="page-head">
+   <div class="wrap">
+       <span class="eyebrow rise">Outputs</span>
+       <h1 class="rise" style="--d:.1s">Generated <span class="grad-text">reports</span></h1>
+       <p class="lead rise" style="--d:.2s">
+           Every pipeline step saves tidy, reusable result files in the outputs folder.
+       </p>
+   </div>
+</section>
+
+
+<section class="section">
+   <div class="wrap grid grid-2">
+
+       <div class="panel reveal">
+           <ul class="list-check">
+               <li>Histograms, box plots and count plots of all attributes</li>
+               <li>Correlation matrix heatmap and Correlation_Matrix.csv</li>
+               <li>Missing values heatmap and Statistical_Summary.csv</li>
+               <li>Cleaned datasets from every encoding technique</li>
+               <li>final_preprocess_M2.csv (final preprocessed dataset)</li>
+           </ul>
+       </div>
+
+       <div class="placeholder reveal" style="--d:.1s;">
+           <span class="ph-icon">🗂️</span>
+           Browse everything in<br><b>D:/ML/CartIQ/outputs</b>
+       </div>
+
+   </div>
+</section>
+
+
+{% endblock %}

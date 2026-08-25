@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+
+{% block title %}About{% endblock %}
+
+
+{% block content %}
+
+
+<section class="page-head">
+   <div class="wrap">
+       <span class="eyebrow rise">About the project</span>
+       <h1 class="rise" style="--d:.1s">What is <span class="grad-text">CartIQ</span>?</h1>
+   </div>
+</section>
+
+
+<section class="section">
+   <div class="wrap grid grid-2">
+
+       <div class="panel reveal">
+           <div class="icon-chip tint-mint">🛒</div>
+           <h3>The idea</h3>
+           <p>
+               CartIQ is a grocery market-basket intelligence system built with
+               Python, Pandas and scikit-learn. It uses the Kaggle Instacart
+               Market Basket Analysis dataset to learn how people shop.
+           </p>
+       </div>
+
+       <div class="panel reveal" style="--d:.1s;">
+           <div class="icon-chip tint-peach">🎯</div>
+           <h3>The goals</h3>
+           <p>
+               The project is built around two prediction outcomes: the value
+               (size) of a customer's basket, and whether a product will be
+               reordered — supported by a complete preprocessing pipeline.
+           </p>
+       </div>
+
+   </div>
+
+   <div class="wrap reveal" style="margin-top:26px;">
+       <div class="chip-row">
+           <span class="chip">🐍 Python</span>
+           <span class="chip cool">🐼 Pandas</span>
+           <span class="chip alt">🧠 scikit-learn</span>
+           <span class="chip cool">🔥 Flask</span>
+           <span class="chip">📊 Matplotlib · Seaborn</span>
+       </div>
+   </div>
+</section>
+
+
+{% endblock %}

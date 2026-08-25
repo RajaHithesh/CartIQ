@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+
+{% block title %}Dataset{% endblock %}
+
+
+{% block content %}
+
+
+<section class="page-head">
+   <div class="wrap">
+       <span class="eyebrow rise">The data</span>
+       <h1 class="rise" style="--d:.1s">One basket, <span class="grad-text">50,000 stories</span></h1>
+       <p class="lead rise" style="--d:.2s">
+           CartIQ uses the Kaggle Instacart Market Basket Analysis dataset,
+           merged into a single consolidated file:
+           <b>dataset/instacart_50k_Raw.csv</b>.
+       </p>
+   </div>
+</section>
+
+
+<section class="section">
+   <div class="wrap reveal">
+
+       <div class="table-wrap">
+           <table>
+               <thead>
+                   <tr><th>Column</th><th>Description</th></tr>
+               </thead>
+               <tbody>
+                   <tr><td>order_id</td><td>Unique order identifier</td></tr>
+                   <tr><td>user_id</td><td>Customer identifier</td></tr>
+                   <tr><td>order_number</td><td>Order sequence number of the customer</td></tr>
+                   <tr><td>order_dow</td><td>Day of week (0–6)</td></tr>
+                   <tr><td>order_hour_of_day</td><td>Hour of day (0–23)</td></tr>
+                   <tr><td>days_since_prior_order</td><td>Days since previous order</td></tr>
+                   <tr><td>eval_set</td><td>prior / train split flag</td></tr>
+                   <tr><td>product_id / product_name</td><td>Product identifier and name</td></tr>
+                   <tr><td>aisle / department</td><td>Product aisle and department</td></tr>
+                   <tr><td>add_to_cart_order</td><td>Item position within the order</td></tr>
+                   <tr><td>basket_size</td><td>Total items in the order (basket value proxy)</td></tr>
+                   <tr><td>reordered</td><td>1 = repeat purchase, 0 = first time</td></tr>
+               </tbody>
+           </table>
+       </div>
+
+   </div>
+</section>
+
+
+{% endblock %}

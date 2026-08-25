@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+
+{% block title %}CartIQ — Home{% endblock %}
+
+
+{% block content %}
+
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+   <div class="wrap hero-inner">
+
+
+       <span class="eyebrow rise" style="--d:.05s">
+           <span class="pulse-dot"></span>
+           Grocery Market Basket Intelligence
+       </span>
+
+
+       <h1 class="rise" style="--d:.15s">
+           Smarter baskets,<br>
+           <span class="grad-text">clearer choices.</span>
+       </h1>
+
+
+       <p class="lead rise" style="--d:.25s">
+           CartIQ turns real Instacart shopping data into insight — exploring
+           customer orders, aisles and departments, and preparing clean,
+           model-ready data for grocery prediction.
+       </p>
+
+
+       <div class="hero-actions rise" style="--d:.35s">
+           <a href="{{ url_for('preprocessing') }}" class="btn">Explore the Pipeline</a>
+           <a href="{{ url_for('dashboard') }}" class="btn ghost">View Dashboard</a>
+       </div>
+
+   </div>
+
+
+   <!-- Floating glass chips -->
+   <div class="float-chip fc-1" aria-hidden="true">
+       <span class="fc-icon">🧺</span>
+       <span>50,000 items<small>real basket records</small></span>
+   </div>
+
+   <div class="float-chip fc-2" aria-hidden="true">
+       <span class="fc-icon">🔁</span>
+       <span>59% reorders<small>repeat purchases</small></span>
+   </div>
+
+   <div class="float-chip fc-3" aria-hidden="true">
+       <span class="fc-icon">🏬</span>
+       <span>21 departments<small>134 aisles mapped</small></span>
+   </div>
+
+</section>
+
+
+
+
+<!-- ================= FEATURES ================= -->
+<section class="section">
+   <div class="wrap">
+
+       <span class="eyebrow reveal">What's inside</span>
+       <h1 class="page-head reveal" style="padding-top:14px; margin-bottom:0;">
+           Everything a basket project needs
+       </h1>
+
+       <div class="grid grid-3" style="margin-top:34px;">
+
+           <div class="card reveal" style="--d:.0s">
+               <div class="icon-chip tint-mint">📂</div>
+               <h3>Real Dataset</h3>
+               <p>A merged 50,000-row Instacart basket dataset — orders, products, aisles and departments.</p>
+           </div>
+
+           <div class="card reveal" style="--d:.08s">
+               <div class="icon-chip tint-peach">🧼</div>
+               <h3>Careful Preprocessing</h3>
+               <p>Missing-value handling, scaling and five encoding techniques produce model-ready data.</p>
+           </div>
+
+           <div class="card reveal" style="--d:.16s">
+               <div class="icon-chip tint-lilac">📊</div>
+               <h3>Rich Visualization</h3>
+               <p>Histograms, box plots, count plots and correlation heatmaps reveal shopping patterns.</p>
+           </div>
+
+           <div class="card reveal" style="--d:.24s">
+               <div class="icon-chip tint-sky">🤖</div>
+               <h3>ML Ready</h3>
+               <p>The final preprocessed dataset is prepared for machine-learning models, coming next.</p>
+           </div>
+
+           <div class="card reveal" style="--d:.32s">
+               <div class="icon-chip tint-lemon">🎯</div>
+               <h3>Prediction Focus</h3>
+               <p>Built around two goals: understanding basket value and product reorder behaviour.</p>
+           </div>
+
+           <div class="card reveal" style="--d:.4s">
+               <div class="icon-chip tint-rose">📋</div>
+               <h3>Clear Reports</h3>
+               <p>Every step saves tidy outputs — summaries, matrices and charts you can reuse.</p>
+           </div>
+
+       </div>
+   </div>
+</section>
+
+
+
+
+<!-- ================= WORKFLOW ================= -->
+<section class="section">
+   <div class="wrap" style="text-align:center;">
+
+       <span class="eyebrow reveal"><span class="pulse-dot"></span> How it works</span>
+       <h1 class="page-head reveal" style="padding-top:14px; margin-bottom:0;">
+           From raw orders to insight
+       </h1>
+
+       <ol class="steps reveal" style="margin-top:40px;">
+           <li class="step">
+               <span class="step-num">1</span>
+               <span>Basket Data</span>
+           </li>
+           <li class="step">
+               <span class="step-num">2</span>
+               <span>Cleaning</span>
+           </li>
+           <li class="step">
+               <span class="step-num">3</span>
+               <span>Encoding &amp; Scaling</span>
+           </li>
+           <li class="step">
+               <span class="step-num">4</span>
+               <span>Final Dataset</span>
+           </li>
+           <li class="step">
+               <span class="step-num">5</span>
+               <span>ML Models</span>
+           </li>
+       </ol>
+
+   </div>
+</section>
+
+
+
+
+<!-- ================= CTA ================= -->
+<section class="section">
+   <div class="wrap">
+       <div class="cta-band reveal">
+           <h2>Curious what the data says?</h2>
+           <a href="{{ url_for('visualization') }}" class="btn">See the Visualizations</a>
+       </div>
+   </div>
+</section>
+
+
+{% endblock %}

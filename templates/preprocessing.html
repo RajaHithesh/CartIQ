@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+{% block title %}Preprocessing{% endblock %}
+
+
+{% block content %}
+
+
+<section class="page-head">
+   <div class="wrap">
+       <span class="eyebrow rise">Data preparation</span>
+       <h1 class="rise" style="--d:.1s">From raw orders to <span class="grad-text">model-ready data</span></h1>
+       <p class="lead rise" style="--d:.2s">
+           Every raw column is cleaned, scaled and encoded by scripts in the
+           src folder before any modelling begins.
+       </p>
+   </div>
+</section>
+
+
+<section class="section">
+   <div class="wrap grid grid-2">
+
+       <div class="card reveal">
+           <div class="icon-chip tint-peach">🩹</div>
+           <h3>Missing Value Handling</h3>
+           <p>Deletion, mean, median and model-based imputation plus missing
+              indicators — days_since_prior_order is the only column with nulls.</p>
+       </div>
+
+       <div class="card reveal" style="--d:.08s">
+           <div class="icon-chip tint-sky">⚖️</div>
+           <h3>Feature Scaling</h3>
+           <p>Standardization (Z-score), Min-Max scaling and L2 normalization
+              bring every numeric feature onto a fair footing.</p>
+       </div>
+
+       <div class="card reveal" style="--d:.16s">
+           <div class="icon-chip tint-lilac">🔤</div>
+           <h3>Categorical Encoding</h3>
+           <p>Label, One-Hot, Ordinal, Target and embedding-style encoding for
+              aisle, department and eval_set.</p>
+       </div>
+
+       <div class="card reveal" style="--d:.24s">
+           <div class="icon-chip tint-mint">✅</div>
+           <h3>Final Dataset</h3>
+           <p>All steps converge into one fully numeric file, ready for
+              machine learning.</p>
+       </div>
+
+   </div>
+</section>
+
+
+<section class="section" style="padding-top:0;">
+   <div class="wrap reveal">
+       <div class="chip-row">
+           <span class="chip">📄 clean_del_mean_model_M2.csv</span>
+           <span class="chip">📄 clean_minmax_stand_norma_M2.csv</span>
+           <span class="chip">📄 clean_label_encode_M2.csv</span>
+           <span class="chip">📄 clean_ordinal_encode_M2.csv</span>
+           <span class="chip">📄 clean_one_hot_encoding_M2.csv</span>
+           <span class="chip">📄 clean_target_encode_M2.csv</span>
+           <span class="chip">📄 clean_embedded_encode_M2.csv</span>
+           <span class="chip alt">⭐ final_preprocess_M2.csv</span>
+       </div>
+   </div>
+</section>
+
+
+{% endblock %}
