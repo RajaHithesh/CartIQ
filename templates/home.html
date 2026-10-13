@@ -9,52 +9,123 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero">
-   <div class="wrap hero-inner">
+   <div class="wrap hero-grid">
 
+       <!-- Left: message -->
+       <div class="hero-copy">
+           <span class="eyebrow rise" style="--d:.05s">
+               <span class="pulse-dot"></span>
+               Grocery Market Basket Intelligence
+           </span>
 
-       <span class="eyebrow rise" style="--d:.05s">
-           <span class="pulse-dot"></span>
-           Grocery Market Basket Intelligence
-       </span>
+           <h1 class="rise" style="--d:.15s">
+               Smarter baskets,<br>
+               <span class="grad-text">clearer choices.</span>
+           </h1>
 
+           <p class="lead rise" style="--d:.25s">
+               CartIQ turns real Instacart shopping data into insight — exploring
+               customer orders, aisles and departments, and preparing clean,
+               model-ready data for grocery prediction.
+           </p>
 
-       <h1 class="rise" style="--d:.15s">
-           Smarter baskets,<br>
-           <span class="grad-text">clearer choices.</span>
-       </h1>
+           <div class="hero-actions rise" style="--d:.35s">
+               <a href="{{ url_for('prediction') }}" class="btn">Try a Live Prediction</a>
+               <a href="{{ url_for('preprocessing') }}" class="btn ghost">Explore the Pipeline</a>
+           </div>
 
+           <div class="hero-badges rise" style="--d:.45s">
+               <span class="chip">🐍 Python</span>
+               <span class="chip cool">🐼 Pandas</span>
+               <span class="chip alt">🧠 scikit-learn</span>
+               <span class="chip cool">🔥 Flask</span>
+           </div>
+       </div>
 
-       <p class="lead rise" style="--d:.25s">
-           CartIQ turns real Instacart shopping data into insight — exploring
-           customer orders, aisles and departments, and preparing clean,
-           model-ready data for grocery prediction.
-       </p>
+       <!-- Right: product-style visual -->
+       <div class="hero-visual rise" style="--d:.3s">
+           <div class="hv-card">
+               <div class="hv-top">
+                   <span class="hv-dot"></span>
+                   <span class="hv-title">Reorder prediction</span>
+                   <span class="hv-badge">Random Forest</span>
+               </div>
 
+               <div class="hv-row">
+                   <span>🧺 Fresh fruits · produce</span>
+                   <span class="hv-strong">Tue · 10:00</span>
+               </div>
 
-       <div class="hero-actions rise" style="--d:.35s">
-           <a href="{{ url_for('preprocessing') }}" class="btn">Explore the Pipeline</a>
-           <a href="{{ url_for('dashboard') }}" class="btn ghost">View Dashboard</a>
+               <div class="hv-meter"><span style="width:78%"></span></div>
+               <div class="hv-foot">
+                   <span>Reorder probability</span>
+                   <span class="hv-pct">78%</span>
+               </div>
+
+               <div class="hv-result">🔁 Will be reordered</div>
+           </div>
+
+           <span class="hv-chip hv-chip-a">🧺 50,000 baskets</span>
+           <span class="hv-chip hv-chip-b">🌳 F1 score 80.0%</span>
+           <span class="hv-chip hv-chip-c">🏬 21 departments</span>
        </div>
 
    </div>
 
+   <!-- Key numbers -->
+   <div class="wrap">
+       <div class="stat-grid" style="margin-top:clamp(38px,6vw,64px);">
 
-   <!-- Floating glass chips -->
-   <div class="float-chip fc-1" aria-hidden="true">
-       <span class="fc-icon">🧺</span>
-       <span>50,000 items<small>real basket records</small></span>
+           <div class="stat reveal" style="--d:.0s">
+               <span class="stat-emoji">🧺</span>
+               <span class="stat-num" data-count="50000">0</span>
+               <span class="stat-label">basket lines analysed</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.06s">
+               <span class="stat-emoji">🔁</span>
+               <span class="stat-num" data-count="59.1" data-decimals="1" data-suffix="%">0%</span>
+               <span class="stat-label">of lines are reorders</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.12s">
+               <span class="stat-emoji">🏬</span>
+               <span class="stat-num" data-count="21">0</span>
+               <span class="stat-label">departments · 134 aisles</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.18s">
+               <span class="stat-emoji">📦</span>
+               <span class="stat-num" data-count="15.8" data-decimals="1">0</span>
+               <span class="stat-label">average basket size (items)</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.24s">
+               <span class="stat-emoji">🏆</span>
+               <span class="stat-num" data-count="80.0" data-decimals="1" data-suffix="%">0%</span>
+               <span class="stat-label">best F1 — Random Forest</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.3s">
+               <span class="stat-emoji">🎯</span>
+               <span class="stat-num" data-count="73.3" data-decimals="1" data-suffix="%">0%</span>
+               <span class="stat-label">best accuracy — AdaBoost</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.36s">
+               <span class="stat-emoji">🧩</span>
+               <span class="stat-num" data-count="3">0</span>
+               <span class="stat-label">best clusters — K-Means</span>
+           </div>
+
+           <div class="stat reveal" style="--d:.42s">
+               <span class="stat-emoji">🤖</span>
+               <span class="stat-num" data-count="15">0</span>
+               <span class="stat-label">models trained &amp; evaluated</span>
+           </div>
+
+       </div>
    </div>
-
-   <div class="float-chip fc-2" aria-hidden="true">
-       <span class="fc-icon">🔁</span>
-       <span>59% reorders<small>repeat purchases</small></span>
-   </div>
-
-   <div class="float-chip fc-3" aria-hidden="true">
-       <span class="fc-icon">🏬</span>
-       <span>21 departments<small>134 aisles mapped</small></span>
-   </div>
-
 </section>
 
 
@@ -65,46 +136,44 @@
    <div class="wrap">
 
        <span class="eyebrow reveal">What's inside</span>
-       <h1 class="page-head reveal" style="padding-top:14px; margin-bottom:0;">
-           Everything a basket project needs
-       </h1>
+       <h2 class="section-head reveal" style="--d:.05s">Everything a basket project needs</h2>
 
        <div class="grid grid-3" style="margin-top:34px;">
 
-           <div class="card reveal" style="--d:.0s">
+           <div class="card feature reveal" style="--d:.0s">
                <div class="icon-chip tint-mint">📂</div>
                <h3>Real Dataset</h3>
                <p>A merged 50,000-row Instacart basket dataset — orders, products, aisles and departments.</p>
            </div>
 
-           <div class="card reveal" style="--d:.08s">
+           <div class="card feature reveal" style="--d:.08s">
                <div class="icon-chip tint-peach">🧼</div>
                <h3>Careful Preprocessing</h3>
                <p>Missing-value handling, scaling and five encoding techniques produce model-ready data.</p>
            </div>
 
-           <div class="card reveal" style="--d:.16s">
+           <div class="card feature reveal" style="--d:.16s">
                <div class="icon-chip tint-lilac">📊</div>
                <h3>Rich Visualization</h3>
                <p>Histograms, box plots, count plots and correlation heatmaps reveal shopping patterns.</p>
            </div>
 
-           <div class="card reveal" style="--d:.24s">
+           <div class="card feature reveal" style="--d:.24s">
                <div class="icon-chip tint-sky">🤖</div>
-               <h3>ML Ready</h3>
-               <p>The final preprocessed dataset is prepared for machine-learning models, coming next.</p>
+               <h3>ML Trained</h3>
+               <p>Fifteen models — regression, classification, ensembles, clustering, dimensionality reduction &amp; cross-validation — trained and evaluated.</p>
            </div>
 
-           <div class="card reveal" style="--d:.32s">
+           <div class="card feature reveal" style="--d:.32s">
                <div class="icon-chip tint-lemon">🎯</div>
                <h3>Prediction Focus</h3>
                <p>Built around two goals: understanding basket value and product reorder behaviour.</p>
            </div>
 
-           <div class="card reveal" style="--d:.4s">
+           <div class="card feature reveal" style="--d:.4s">
                <div class="icon-chip tint-rose">📋</div>
                <h3>Clear Reports</h3>
-               <p>Every step saves tidy outputs — summaries, matrices and charts you can reuse.</p>
+               <p>Every chart and every metric the project produces is visible right inside the app.</p>
            </div>
 
        </div>
@@ -115,13 +184,11 @@
 
 
 <!-- ================= WORKFLOW ================= -->
-<section class="section">
+<section class="section" style="padding-top:0;">
    <div class="wrap" style="text-align:center;">
 
        <span class="eyebrow reveal"><span class="pulse-dot"></span> How it works</span>
-       <h1 class="page-head reveal" style="padding-top:14px; margin-bottom:0;">
-           From raw orders to insight
-       </h1>
+       <h2 class="section-head reveal" style="--d:.05s">From raw orders to insight</h2>
 
        <ol class="steps reveal" style="margin-top:40px;">
            <li class="step">
@@ -152,12 +219,116 @@
 
 
 
+<!-- ================= BEST RESULTS ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap">
+
+       <span class="eyebrow reveal">Headline results</span>
+       <h2 class="section-head reveal" style="--d:.05s">The best results at a glance</h2>
+
+       <div class="score-grid" style="margin-top:34px;">
+
+           <div class="score-card reveal">
+               <div class="score-head">
+                   <span class="score-emoji tint-mint">🌳</span>
+                   <span class="score-tag">Best F1</span>
+               </div>
+               <h3>Random Forest</h3>
+               <span class="score-num">80.0%</span>
+               <div class="score-bar"><span style="width:80%"></span></div>
+               <p>Highest F1 and 91.5% recall for the reorder class — our chosen model.</p>
+           </div>
+
+           <div class="score-card reveal" style="--d:.08s">
+               <div class="score-head">
+                   <span class="score-emoji tint-peach">🚀</span>
+                   <span class="score-tag">Best accuracy</span>
+               </div>
+               <h3>AdaBoost</h3>
+               <span class="score-num">73.3%</span>
+               <div class="score-bar"><span style="width:73.3%"></span></div>
+               <p>100 boosted stumps on the same pipeline — the most accurate classifier.</p>
+           </div>
+
+           <div class="score-card reveal" style="--d:.16s">
+               <div class="score-head">
+                   <span class="score-emoji tint-lilac">🌀</span>
+                   <span class="score-tag">Clustering</span>
+               </div>
+               <h3>K-Means</h3>
+               <span class="score-num">3 clusters</span>
+               <div class="score-bar"><span style="width:32%"></span></div>
+               <p>Elbow and silhouette agree on 3 shopper groups · silhouette 0.32.</p>
+           </div>
+
+       </div>
+
+       <p style="text-align:center; margin-top:30px;">
+           <a href="{{ url_for('models') }}" class="btn ghost">See every model →</a>
+       </p>
+
+   </div>
+</section>
+
+
+
+
+<!-- ================= EXPLORE THE APP ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap">
+
+       <span class="eyebrow reveal">Take a tour</span>
+       <h2 class="section-head reveal" style="--d:.05s">Explore the whole project</h2>
+
+       <div class="tiles">
+           <a class="tile reveal" href="{{ url_for('dataset') }}">
+               <span class="tile-icon tint-mint">📂</span>
+               <span class="tile-text"><b>Dataset</b><small>50,000 rows · 14 columns</small></span>
+               <span class="tile-arrow">→</span>
+           </a>
+           <a class="tile reveal" style="--d:.05s" href="{{ url_for('preprocessing') }}">
+               <span class="tile-icon tint-peach">🧼</span>
+               <span class="tile-text"><b>Preprocessing</b><small>Clean · encode · scale</small></span>
+               <span class="tile-arrow">→</span>
+           </a>
+           <a class="tile reveal" style="--d:.1s" href="{{ url_for('visualization') }}">
+               <span class="tile-icon tint-lilac">📊</span>
+               <span class="tile-text"><b>Visualization</b><small>65 exploratory charts</small></span>
+               <span class="tile-arrow">→</span>
+           </a>
+           <a class="tile reveal" style="--d:.15s" href="{{ url_for('models') }}">
+               <span class="tile-icon tint-sky">🤖</span>
+               <span class="tile-text"><b>ML Models</b><small>15 models · all charts</small></span>
+               <span class="tile-arrow">→</span>
+           </a>
+           <a class="tile reveal" style="--d:.2s" href="{{ url_for('prediction') }}">
+               <span class="tile-icon tint-lemon">🎯</span>
+               <span class="tile-text"><b>Prediction</b><small>Live reorder demo</small></span>
+               <span class="tile-arrow">→</span>
+           </a>
+           <a class="tile reveal" style="--d:.25s" href="{{ url_for('reports') }}">
+               <span class="tile-icon tint-rose">📋</span>
+               <span class="tile-text"><b>Reports</b><small>Every chart &amp; metric</small></span>
+               <span class="tile-arrow">→</span>
+           </a>
+       </div>
+
+   </div>
+</section>
+
+
+
+
 <!-- ================= CTA ================= -->
-<section class="section">
+<section class="section" style="padding-top:0;">
    <div class="wrap">
        <div class="cta-band reveal">
            <h2>Curious what the data says?</h2>
-           <a href="{{ url_for('visualization') }}" class="btn">See the Visualizations</a>
+           <p style="max-width:560px;margin:0 auto 26px;color:var(--muted);">
+               Explore every chart the project produces, or describe an order and watch the model predict a reorder.
+           </p>
+           <a href="{{ url_for('models') }}" class="btn">Explore the Models</a>
+           <a href="{{ url_for('prediction') }}" class="btn ghost" style="margin-left:12px;">Try a Prediction</a>
        </div>
    </div>
 </section>

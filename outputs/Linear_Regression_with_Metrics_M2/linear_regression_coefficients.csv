@@ -1,0 +1,6 @@
+Feature,Coefficient
+Intercept,0.002325304461037687
+order_number,0.04319971697906246
+order_dow,-0.08754825772824883
+order_hour_of_day,0.009115576619523707
+days_since_prior_order,0.07191622298376674

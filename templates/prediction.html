@@ -9,11 +9,13 @@
 
 <section class="page-head">
    <div class="wrap">
-       <span class="eyebrow rise">Try it out</span>
+       <span class="eyebrow rise"><span class="pulse-dot"></span> Live models</span>
        <h1 class="rise" style="--d:.1s">Basket <span class="grad-text">prediction</span></h1>
        <p class="lead rise" style="--d:.2s">
-           Describe an order below — the prediction engine will be connected
-           once the machine-learning models are implemented.
+           Describe an order and one of the three trained Module&nbsp;3 pipelines
+           (Random Forest, AdaBoost or Decision Tree) will predict whether the
+           product will be <b>reordered</b>. Everything runs inside the same
+           sklearn pipeline that was trained on the raw dataset.
        </p>
    </div>
 </section>
@@ -24,77 +26,146 @@
 
        <div class="panel form-card reveal">
 
-           <form>
+           <form method="post" action="{{ url_for('prediction') }}">
                <div class="form-grid">
 
                    <div class="field">
-                       <label>Order Number</label>
-                       <input type="number" placeholder="Customer order sequence">
-                   </div>
-
-                   <div class="field">
-                       <label>Day of Week</label>
-                       <select>
-                           <option>Sunday</option>
-                           <option>Monday</option>
-                           <option>Tuesday</option>
-                           <option>Wednesday</option>
-                           <option>Thursday</option>
-                           <option>Friday</option>
-                           <option>Saturday</option>
+                       <label for="model">Model</label>
+                       <select id="model" name="model">
+                           {% for key, option in model_options.items() %}
+                           <option value="{{ key }}" {{ 'selected' if form.model == key }}>{{ option.label }}</option>
+                           {% endfor %}
                        </select>
                    </div>
 
                    <div class="field">
-                       <label>Order Hour of Day</label>
-                       <input type="number" min="0" max="23" placeholder="Hour (0–23)">
+                       <label for="order_number">Order Number</label>
+                       <input id="order_number" type="number" name="order_number" min="1" max="100"
+                              value="{{ form.order_number }}" required>
                    </div>
 
                    <div class="field">
-                       <label>Days Since Prior Order</label>
-                       <input type="number" step="0.1" placeholder="e.g. 7.0">
-                   </div>
-
-                   <div class="field">
-                       <label>Aisle</label>
-                       <select>
-                           <option>fresh fruits</option>
-                           <option>fresh vegetables</option>
-                           <option>packaged vegetables fruits</option>
-                           <option>yogurt</option>
-                           <option>bakery</option>
-                           <option>beverages</option>
+                       <label for="order_dow">Day of Week</label>
+                       <select id="order_dow" name="order_dow">
+                           {% for name in day_names %}
+                           <option value="{{ loop.index0 }}" {{ 'selected' if form.order_dow == loop.index0|string }}>{{ name }}</option>
+                           {% endfor %}
                        </select>
                    </div>
 
                    <div class="field">
-                       <label>Department</label>
-                       <select>
-                           <option>produce</option>
-                           <option>dairy eggs</option>
-                           <option>snacks</option>
-                           <option>beverages</option>
-                           <option>frozen</option>
-                           <option>pantry</option>
-                           <option>bakery</option>
+                       <label for="order_hour_of_day">Order Hour of Day</label>
+                       <input id="order_hour_of_day" type="number" name="order_hour_of_day" min="0" max="23"
+                              value="{{ form.order_hour_of_day }}" required>
+                   </div>
+
+                   <div class="field">
+                       <label for="days_since_prior_order">Days Since Prior Order</label>
+                       <input id="days_since_prior_order" type="number" name="days_since_prior_order"
+                              min="0" max="30" step="0.1"
+                              value="{{ form.days_since_prior_order }}"
+                              placeholder="Leave blank for a first order">
+                   </div>
+
+                   <div class="field">
+                       <label for="add_to_cart_order">Add to Cart Order</label>
+                       <input id="add_to_cart_order" type="number" name="add_to_cart_order" min="1" max="72"
+                              value="{{ form.add_to_cart_order }}" required>
+                   </div>
+
+                   <div class="field">
+                       <label for="basket_size">Basket Size (items)</label>
+                       <input id="basket_size" type="number" name="basket_size" min="1" max="72"
+                              value="{{ form.basket_size }}" required>
+                   </div>
+
+                   <div class="field">
+                       <label for="eval_set">Eval Set</label>
+                       <select id="eval_set" name="eval_set">
+                           <option value="train" {{ 'selected' if form.eval_set == 'train' }}>train</option>
+                           <option value="prior" {{ 'selected' if form.eval_set == 'prior' }}>prior</option>
                        </select>
                    </div>
 
                    <div class="field">
-                       <label>Add to Cart Order</label>
-                       <input type="number" placeholder="Item position in basket">
+                       <label for="aisle">Aisle ({{ aisles|length }} options)</label>
+                       <select id="aisle" name="aisle">
+                           {% for aisle in aisles %}
+                           <option value="{{ aisle }}" {{ 'selected' if form.aisle == aisle }}>{{ aisle }}</option>
+                           {% endfor %}
+                       </select>
+                   </div>
+
+                   <div class="field">
+                       <label for="department">Department</label>
+                       <select id="department" name="department">
+                           {% for dept in departments %}
+                           <option value="{{ dept }}" {{ 'selected' if form.department == dept }}>{{ dept }}</option>
+                           {% endfor %}
+                       </select>
                    </div>
 
                </div>
 
-               <button type="button" class="btn" style="width:100%; justify-content:center;">
-                   Predict Basket Outcome
+               <button type="submit" class="btn" style="width:100%; justify-content:center;">
+                   Predict Reorder
                </button>
 
-               <p class="form-hint">Prediction engine will be wired to the trained models in a later phase.</p>
+               <p class="form-hint">
+                   Pipeline: median imputer + one-hot encoder inside the model —
+                   the raw dataset is never modified.
+               </p>
 
            </form>
 
+       </div>
+
+       {% if error %}
+       <div class="error-card reveal">
+           ⚠️ {{ error }}
+       </div>
+       {% endif %}
+
+       {% if result %}
+       <div class="result-card {{ 'positive' if result.reordered else 'negative' }} reveal">
+           <span class="result-emoji">{{ '🔁' if result.reordered else '🆕' }}</span>
+           <span class="result-label">Prediction</span>
+           <div class="result-value">
+               {{ 'Will be reordered' if result.reordered else 'First-time purchase' }}
+           </div>
+           <p class="result-prob">
+               Reorder probability: <b>{{ result.probability }}%</b>
+           </p>
+           <div class="result-bar">
+               <span style="width: {{ result.probability }}%"></span>
+           </div>
+           <span class="result-meta">🤖 {{ result.model_label }}</span>
+       </div>
+       {% endif %}
+
+   </div>
+</section>
+
+
+<section class="section" style="padding-top:0;">
+   <div class="wrap grid grid-3">
+
+       <div class="card reveal">
+           <div class="icon-chip tint-mint">🎯</div>
+           <h3>Best F1: Random Forest</h3>
+           <p>80.0% F1 · 72.98% accuracy — strong recall (91.5%) for the reorder class.</p>
+       </div>
+
+       <div class="card reveal" style="--d:.08s">
+           <div class="icon-chip tint-peach">📈</div>
+           <h3>Best accuracy: AdaBoost</h3>
+           <p>73.28% accuracy · 79.2% F1 — 100 boosted stumps on the same pipeline.</p>
+       </div>
+
+       <div class="card reveal" style="--d:.16s">
+           <div class="icon-chip tint-lilac">🌳</div>
+           <h3>Baseline: Decision Tree</h3>
+           <p>72.23% accuracy · 78.4% F1 — interpretable single tree, depth-limited.</p>
        </div>
 
    </div>

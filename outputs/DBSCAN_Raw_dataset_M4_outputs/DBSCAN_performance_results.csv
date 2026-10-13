@@ -1,0 +1,16 @@
+Metric,Value
+Algorithm,DBSCAN
+Input Dataset,instacart_50k_Raw.csv
+Original Dataset Rows,50000
+Rows Used,46791
+Rows Removed,3209
+Number of Features,3
+Features Used,"order_hour_of_day, days_since_prior_order, basket_size"
+Scaling Method,StandardScaler
+DBSCAN eps,0.8
+DBSCAN min_samples,10
+Number of Clusters,7
+Noise Points,0
+Clustered Points,46791
+Noise Percentage,0.0
+Clustered Percentage,100.0

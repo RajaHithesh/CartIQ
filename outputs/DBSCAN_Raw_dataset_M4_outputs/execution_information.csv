@@ -1,0 +1,10 @@
+Item,Details
+Input Dataset,D:/ML/CartIQ/dataset/instacart_50k_Raw.csv
+Output Folder,D:/ML/CartIQ/outputs/DBSCAN_Raw_dataset_M4_outputs
+Original Dataset Modified,NO
+Features Used,"order_hour_of_day, days_since_prior_order, basket_size"
+Preprocessing,Raw dataset - dropna on selected features
+Scaling,StandardScaler
+Algorithm,DBSCAN
+eps,0.8
+min_samples,10

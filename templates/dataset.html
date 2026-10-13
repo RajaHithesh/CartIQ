@@ -20,29 +20,175 @@
 </section>
 
 
-<section class="section">
+<section class="section" style="padding-top:8px;">
+   <div class="wrap">
+
+       <div class="stat-grid">
+           <div class="stat reveal" style="--d:.0s">
+               <span class="stat-emoji">📄</span>
+               <span class="stat-num" data-count="50000">0</span>
+               <span class="stat-label">rows × 14 columns</span>
+           </div>
+           <div class="stat reveal" style="--d:.08s">
+               <span class="stat-emoji">👤</span>
+               <span class="stat-num" data-count="4799">0</span>
+               <span class="stat-label">unique customers</span>
+           </div>
+           <div class="stat reveal" style="--d:.16s">
+               <span class="stat-emoji">🧾</span>
+               <span class="stat-num" data-count="11650">0</span>
+               <span class="stat-label">unique products</span>
+           </div>
+           <div class="stat reveal" style="--d:.24s">
+               <span class="stat-emoji">🕳️</span>
+               <span class="stat-num" data-count="3209">0</span>
+               <span class="stat-label">nulls (only days_since_prior_order)</span>
+           </div>
+       </div>
+
+   </div>
+</section>
+
+
+<section class="section" style="padding-top:0;">
+   <div class="wrap">
+
+       <div class="section-title reveal">
+           <span class="st-icon tint-sky">🗂️</span>
+           <div>
+               <h2>Dataset preview</h2>
+               <p>The first {{ preview_shown }} rows of the raw file, exactly as stored.</p>
+           </div>
+       </div>
+
+       <div class="preview-bar reveal" style="--d:.05s">
+           <span class="preview-note">
+               Rows <b id="pgRange">1–50</b> of
+               <b>{{ "{:,}".format(total_rows) }}</b> ·
+               first <b>{{ preview_shown }}</b> loaded · 14 columns
+           </span>
+           <span class="preview-actions">
+               <a class="btn ghost" href="{{ url_for('dataset_csv') }}"
+                  target="_blank" rel="noopener">Open full CSV ↗</a>
+               <a class="btn" href="{{ url_for('dataset_csv', download=1) }}">Download CSV</a>
+           </span>
+       </div>
+
+       <div class="table-wrap preview-wrap reveal" style="--d:.1s">
+           <table class="preview-table">
+               <thead>
+                   <tr>
+                       {% for col in preview_columns %}<th>{{ col }}</th>{% endfor %}
+                   </tr>
+               </thead>
+               <tbody id="previewBody"></tbody>
+           </table>
+       </div>
+
+       <div class="preview-pager reveal" style="--d:.15s">
+           <button type="button" class="btn ghost sm" id="pgFirst">« First</button>
+           <button type="button" class="btn ghost sm" id="pgPrev">‹ Prev</button>
+           <span class="pager-info" id="pgInfo">Page 1</span>
+           <button type="button" class="btn ghost sm" id="pgNext">Next ›</button>
+           <button type="button" class="btn ghost sm" id="pgLast">Last »</button>
+       </div>
+
+       <script id="previewData" type="application/json">{{ preview_rows|tojson }}</script>
+       <script>
+       (function () {
+           var rows = JSON.parse(document.getElementById('previewData').textContent);
+           var body = document.getElementById('previewBody');
+           var perPage = 50;
+           var page = 0;
+           var pages = Math.max(Math.ceil(rows.length / perPage), 1);
+
+           function escapeHtml(value) {
+               return String(value).replace(/[&<>"]/g, function (ch) {
+                   return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch];
+               });
+           }
+
+           function render() {
+               var start = page * perPage;
+               var end = Math.min(start + perPage, rows.length);
+               var html = '';
+               for (var i = start; i < end; i++) {
+                   html += '<tr>';
+                   for (var j = 0; j < rows[i].length; j++) {
+                       var cell = rows[i][j];
+                       html += '<td>' + escapeHtml(cell === null ? '' : cell) + '</td>';
+                   }
+                   html += '</tr>';
+               }
+               body.innerHTML = html;
+               document.getElementById('pgRange').textContent = (rows.length ? start + 1 : 0) + '–' + end;
+               document.getElementById('pgInfo').textContent = 'Page ' + (page + 1) + ' of ' + pages;
+               document.getElementById('pgFirst').disabled = (page === 0);
+               document.getElementById('pgPrev').disabled = (page === 0);
+               document.getElementById('pgNext').disabled = (page >= pages - 1);
+               document.getElementById('pgLast').disabled = (page >= pages - 1);
+           }
+
+           document.getElementById('pgFirst').addEventListener('click', function () { page = 0; render(); });
+           document.getElementById('pgPrev').addEventListener('click', function () { if (page > 0) { page--; render(); } });
+           document.getElementById('pgNext').addEventListener('click', function () { if (page < pages - 1) { page++; render(); } });
+           document.getElementById('pgLast').addEventListener('click', function () { page = pages - 1; render(); });
+
+           render();
+       })();
+       </script>
+
+   </div>
+</section>
+
+
+<section class="section" style="padding-top:0;">
    <div class="wrap reveal">
 
        <div class="table-wrap">
            <table>
                <thead>
-                   <tr><th>Column</th><th>Description</th></tr>
+                   <tr><th>Column</th><th>Type</th><th>Description</th></tr>
                </thead>
                <tbody>
-                   <tr><td>order_id</td><td>Unique order identifier</td></tr>
-                   <tr><td>user_id</td><td>Customer identifier</td></tr>
-                   <tr><td>order_number</td><td>Order sequence number of the customer</td></tr>
-                   <tr><td>order_dow</td><td>Day of week (0–6)</td></tr>
-                   <tr><td>order_hour_of_day</td><td>Hour of day (0–23)</td></tr>
-                   <tr><td>days_since_prior_order</td><td>Days since previous order</td></tr>
-                   <tr><td>eval_set</td><td>prior / train split flag</td></tr>
-                   <tr><td>product_id / product_name</td><td>Product identifier and name</td></tr>
-                   <tr><td>aisle / department</td><td>Product aisle and department</td></tr>
-                   <tr><td>add_to_cart_order</td><td>Item position within the order</td></tr>
-                   <tr><td>basket_size</td><td>Total items in the order (basket value proxy)</td></tr>
-                   <tr><td>reordered</td><td>1 = repeat purchase, 0 = first time</td></tr>
+                   <tr><td>order_id</td><td>int</td><td>Unique order identifier</td></tr>
+                   <tr><td>user_id</td><td>int</td><td>Customer identifier</td></tr>
+                   <tr><td>order_number</td><td>int</td><td>Order sequence number of the customer</td></tr>
+                   <tr><td>order_dow</td><td>int</td><td>Day of week (0–6)</td></tr>
+                   <tr><td>order_hour_of_day</td><td>int</td><td>Hour of day (0–23)</td></tr>
+                   <tr><td>days_since_prior_order</td><td>float</td><td>Days since previous order — <b>the only column with nulls</b></td></tr>
+                   <tr><td>eval_set</td><td>str</td><td>prior / train split flag</td></tr>
+                   <tr><td>product_id</td><td>int</td><td>Product identifier</td></tr>
+                   <tr><td>product_name</td><td>str</td><td>Human-readable product name</td></tr>
+                   <tr><td>aisle</td><td>str</td><td>Product aisle (134 unique)</td></tr>
+                   <tr><td>department</td><td>str</td><td>Product department (21 unique)</td></tr>
+                   <tr><td>add_to_cart_order</td><td>int</td><td>Item position within the order</td></tr>
+                   <tr><td>basket_size</td><td>int</td><td>Total items in the order (basket value proxy)</td></tr>
+                   <tr><td>reordered</td><td>int</td><td>1 = repeat purchase, 0 = first time — <b>the target</b></td></tr>
                </tbody>
            </table>
+       </div>
+
+   </div>
+</section>
+
+
+<section class="section" style="padding-top:0;">
+   <div class="wrap grid grid-2">
+
+       <div class="card reveal">
+           <div class="icon-chip tint-mint">🔒</div>
+           <h3>Raw data stays untouched</h3>
+           <p>Every cleaning, scaling and encoding step works on a copy. The original
+              50,000-row CSV is never modified — a hard rule across all modules.</p>
+       </div>
+
+       <div class="card reveal" style="--d:.08s">
+           <div class="icon-chip tint-peach">➡️</div>
+           <h3>Feeds a fully numeric dataset</h3>
+           <p>The preprocessing pipeline turns these 14 mixed columns into
+              <b>final_preprocess_M2.csv</b>, a clean all-numeric matrix ready for
+              the fifteen models.</p>
        </div>
 
    </div>

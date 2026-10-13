@@ -1,0 +1,6 @@
+Parameter,Value
+Algorithm,AdaBoost Classifier
+Base Estimator,Decision Tree Classifier
+Base Tree Maximum Depth,2
+Number of Estimators,100
+Random State,42

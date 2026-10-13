@@ -1,0 +1,10 @@
+Item,Details
+Input Dataset,D:/ML/CartIQ/dataset/final_preprocess_M2.csv
+Output Folder,D:/ML/CartIQ/outputs/DBSCAN_Pre_Processed_dataset_M4_outputs
+Original Dataset Modified,NO
+Features Used,"order_hour_of_day, days_since_prior_order, basket_size"
+Preprocessing,Existing preprocessed dataset
+Scaling,StandardScaler
+Algorithm,DBSCAN
+eps,0.8
+min_samples,10

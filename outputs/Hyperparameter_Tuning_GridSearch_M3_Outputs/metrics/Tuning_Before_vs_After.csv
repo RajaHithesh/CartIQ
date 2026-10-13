@@ -1,0 +1,4 @@
+Model,Configurations Tested,Folds,Total Fits,Baseline Params,Best Params,Baseline Test F1,Best CV F1,Tuned Test F1,F1 Improvement,Search Seconds
+Decision Tree,40,5,200,"criterion=gini, max_depth=6, min_samples_leaf=5, min_samples_split=10","criterion=gini, max_depth=8, min_samples_leaf=1, min_samples_split=2",0.7844,0.7907,0.7912,0.0067,25.45
+Random Forest,8,5,40,"max_depth=10, min_samples_leaf=5, min_samples_split=10, n_estimators=100","max_depth=None, min_samples_leaf=1, n_estimators=100",0.8,0.807,0.8093,0.0093,139.77
+AdaBoost,6,5,30,"estimator__max_depth=2, n_estimators=100","estimator__max_depth=2, n_estimators=200",0.7915,0.7935,0.7944,0.0029,37.93

@@ -1,0 +1,164 @@
+Feature,Importance
+num__order_number,0.49455954812090114
+num__days_since_prior_order,0.15621954144418532
+num__add_to_cart_order,0.08062560275281878
+cat__department_pantry,0.03725432933742267
+num__basket_size,0.02995186990914636
+cat__aisle_fresh fruits,0.021915277345505923
+num__order_hour_of_day,0.01858232202691994
+cat__aisle_spices seasonings,0.01608307029316995
+cat__department_produce,0.015600415697583607
+cat__department_dairy eggs,0.015494668127179279
+num__order_dow,0.013217128132387533
+cat__aisle_milk,0.012284705394440282
+cat__department_personal care,0.011698841277094769
+cat__department_household,0.006494148407631097
+cat__aisle_water seltzer sparkling water,0.004414259605139913
+cat__aisle_baking ingredients,0.004337396336713197
+cat__department_canned goods,0.004283971422091418
+cat__aisle_yogurt,0.0031940945039458076
+cat__department_dry goods pasta,0.0031372141391835277
+cat__aisle_condiments,0.003060642482496961
+cat__aisle_asian foods,0.0023876488037850255
+cat__aisle_oils vinegars,0.0023061058251850454
+cat__department_beverages,0.002113902433673837
+cat__department_frozen,0.002054838324024749
+cat__department_international,0.0020462942501170197
+cat__eval_set_prior,0.001796976076201988
+cat__aisle_fresh vegetables,0.0017795360135110685
+cat__eval_set_train,0.001677152719088654
+cat__aisle_food storage,0.001564170336017066
+cat__aisle_fresh herbs,0.001444974377441306
+cat__aisle_canned jarred vegetables,0.0013776487147150638
+cat__aisle_soup broth bouillon,0.0013166882368056958
+cat__aisle_soy lactosefree,0.0012966759044550653
+cat__aisle_spreads,0.001171976195618991
+cat__aisle_packaged vegetables fruits,0.0010375682787369112
+cat__aisle_eggs,0.0009269392538309505
+cat__aisle_cleaning products,0.0009086992558808654
+cat__aisle_packaged cheese,0.0008083838033754493
+cat__aisle_specialty cheeses,0.0006692510209895877
+cat__aisle_dry pasta,0.0006672320496725837
+cat__aisle_baking supplies decor,0.0006288088477930287
+cat__aisle_butter,0.0005629826149036744
+cat__aisle_hair care,0.0005213747055784706
+cat__department_babies,0.0005186377950606576
+cat__aisle_laundry,0.0005146327761134335
+cat__aisle_cold flu allergy,0.0005106433232784532
+cat__aisle_protein meal replacements,0.0004907202355980367
+cat__aisle_missing,0.00048386938324907695
+cat__aisle_paper goods,0.0004823579405201011
+cat__aisle_ice cream ice,0.0004722608784884948
+cat__aisle_packaged produce,0.0004516422018347723
+cat__aisle_pickled goods olives,0.0004364482548879832
+cat__aisle_other creams cheeses,0.0004210867378509345
+cat__aisle_frozen meals,0.0003680665996045233
+cat__aisle_canned meals beans,0.0003446328178110881
+cat__aisle_pasta sauce,0.00034407422976103245
+cat__aisle_latino foods,0.00032416198171342567
+cat__aisle_body lotions soap,0.0003193409622448044
+cat__aisle_trash bags liners,0.00031787653251116806
+cat__department_missing,0.00031654553320612406
+cat__aisle_dish detergents,0.0003044429803315748
+cat__aisle_bread,0.00030206789397038106
+cat__aisle_grains rice dried goods,0.0002930797621619885
+cat__aisle_preserved dips spreads,0.0002901269971158412
+cat__department_bakery,0.00026676291252479794
+cat__aisle_baby food formula,0.00026528353315401193
+cat__aisle_doughs gelatins bake mixes,0.00026525658606739254
+cat__aisle_oral hygiene,0.0002637771251599713
+cat__aisle_marinades meat preparation,0.0002617242742447248
+cat__aisle_frozen produce,0.0002562898770933393
+cat__department_snacks,0.0002474879676789837
+cat__aisle_soap,0.00024338818391972988
+cat__aisle_air fresheners candles,0.0002426406943591039
+cat__aisle_honeys syrups nectars,0.000241093895706452
+cat__aisle_tea,0.00023970648970915182
+cat__aisle_refrigerated,0.00023236180066873196
+cat__aisle_cream,0.0002193591578712395
+cat__aisle_salad dressing toppings,0.0002032884153380498
+cat__department_deli,0.0001847960632614661
+cat__aisle_canned fruit applesauce,0.00017638769955947154
+cat__department_meat seafood,0.0001754771678482451
+cat__aisle_first aid,0.000169755635265136
+cat__aisle_juice nectars,0.0001689158476106632
+cat__department_breakfast,0.00016887145250319463
+cat__aisle_breakfast bakery,0.00015825515976418213
+cat__aisle_instant foods,0.0001575677246158656
+cat__aisle_more household,0.00014278020656915226
+cat__aisle_kitchen supplies,0.00013938374574653083
+cat__aisle_vitamins supplements,0.00013481654043026885
+cat__aisle_nuts seeds dried fruit,0.0001338592889663198
+cat__aisle_digestion,0.00012444260588634817
+cat__aisle_refrigerated pudding desserts,0.00012114361813881204
+cat__aisle_hot dogs bacon sausage,0.00011834150402402252
+cat__aisle_muscles joints pain relief,0.00011700482550400708
+cat__aisle_hot cereal pancake mixes,0.00010803109300699953
+cat__aisle_energy granola bars,0.0001069058942234588
+cat__aisle_chips pretzels,0.00010314380178685036
+cat__aisle_lunch meat,9.990897222556993e-05
+cat__aisle_other,8.939895737144739e-05
+cat__aisle_frozen breads doughs,8.772453640379062e-05
+cat__aisle_frozen meat seafood,8.542582188771095e-05
+cat__aisle_soft drinks,8.390505301955616e-05
+cat__aisle_crackers,8.131843109144113e-05
+cat__aisle_frozen appetizers sides,7.519978388945923e-05
+cat__department_pets,7.355741541773443e-05
+cat__aisle_poultry counter,7.051963205767725e-05
+cat__aisle_tortillas flat bread,6.931108205335767e-05
+cat__aisle_cereal,6.893831947168136e-05
+cat__department_alcohol,6.47974275386125e-05
+cat__aisle_popcorn jerky,6.17490571455885e-05
+cat__aisle_frozen pizza,6.0415562773883806e-05
+cat__aisle_canned meat seafood,5.954390287716807e-05
+cat__aisle_coffee,5.556946178789486e-05
+cat__department_other,5.0855845394534325e-05
+cat__aisle_red wines,4.784617840883576e-05
+cat__aisle_fresh dips tapenades,4.679313192270883e-05
+cat__aisle_frozen breakfast,4.6744478245262496e-05
+cat__aisle_energy sports drinks,4.106081252030981e-05
+cat__aisle_cocoa drink mixes,3.901752695312719e-05
+cat__aisle_kosher foods,3.892042326138929e-05
+cat__aisle_fruit vegetable snacks,3.7980145241712455e-05
+cat__aisle_cat food care,3.5492629251697906e-05
+cat__aisle_buns rolls,3.426244703279889e-05
+cat__aisle_prepared meals,3.415436629606564e-05
+cat__aisle_candy chocolate,2.9077733020837307e-05
+cat__aisle_frozen dessert,2.8363280047664125e-05
+cat__aisle_bakery desserts,2.8273123974761482e-05
+cat__aisle_cookies cakes,2.8145355260962933e-05
+cat__aisle_beers coolers,2.659909445585894e-05
+cat__aisle_breakfast bars pastries,2.6588731363112192e-05
+cat__aisle_white wines,2.5466076772145668e-05
+cat__department_bulk,2.5358172342608328e-05
+cat__aisle_bulk dried fruits vegetables,2.07569579585919e-05
+cat__aisle_dog food care,1.9035271390619894e-05
+cat__aisle_packaged meat,1.861697538246418e-05
+cat__aisle_frozen vegan vegetarian,1.6697230722429432e-05
+cat__aisle_spirits,1.6332732837626675e-05
+cat__aisle_ice cream toppings,1.4774436977297249e-05
+cat__aisle_plates bowls cups flatware,1.4366699971109598e-05
+cat__aisle_mint gum,1.4006648394794286e-05
+cat__aisle_fresh pasta,1.249211237501878e-05
+cat__aisle_granola,1.0844806401049975e-05
+cat__aisle_deodorants,8.069748687508211e-06
+cat__aisle_tofu meat alternatives,6.937449746670402e-06
+cat__aisle_trail mix snack mix,6.8369233011849465e-06
+cat__aisle_eye ear care,6.674034583998319e-06
+cat__aisle_prepared soups salads,4.1816116434089965e-06
+cat__aisle_bulk grains rice dried goods,3.5689327786705472e-06
+cat__aisle_shave needs,2.176633355791409e-06
+cat__aisle_skin care,1.590597704541196e-06
+cat__aisle_facial care,1.3591490492694685e-06
+cat__aisle_feminine care,1.1548415827394807e-06
+cat__aisle_diapers wipes,1.0103711296344377e-06
+cat__aisle_packaged poultry,3.4146236641857795e-07
+cat__aisle_beauty,0.0
+cat__aisle_baby bath body care,0.0
+cat__aisle_baby accessories,0.0
+cat__aisle_frozen juice,0.0
+cat__aisle_indian foods,0.0
+cat__aisle_meat counter,0.0
+cat__aisle_specialty wines champagnes,0.0
+cat__aisle_packaged seafood,0.0
+cat__aisle_seafood counter,0.0

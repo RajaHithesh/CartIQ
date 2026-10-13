@@ -1,0 +1,25 @@
+{# ------------------------------------------------------------------
+   Renders every chart, every generated message and every downloadable
+   file for one module. Expects: `module` (from app._collect_modules()).
+   Shared by reports.html and models.html.
+   ------------------------------------------------------------------ #}
+
+{% if module.images %}
+{% for group, items in module.images|groupby('group') %}
+{% if group not in ['charts'] %}
+<h3 class="gallery-sub reveal">{{ group.replace('_', ' ')|title }}</h3>
+{% endif %}
+<div class="gallery">
+    {% for img in items %}
+    <figure class="chart-card reveal">
+        <a href="{{ url_for('outputs_file', filename=img.rel) }}" target="_blank" rel="noopener">
+            <img src="{{ url_for('outputs_file', filename=img.rel) }}" alt="{{ img.caption }}" loading="lazy">
+        </a>
+        <figcaption class="chart-cap">{{ img.caption }}<small>{{ img.name }}</small></figcaption>
+    </figure>
+    {% endfor %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% include "_module_messages.html" %}

@@ -1,0 +1,53 @@
+{# ------------------------------------------------------------------
+   Renders the generated messages/metrics and downloadable files for one
+   module. Expects: `module` (from app._collect_modules()).
+   Shared by _module_outputs.html (reports/models) and visualization.html.
+   ------------------------------------------------------------------ #}
+
+{% if module.messages %}
+<h3 class="gallery-sub reveal" style="margin-top:34px;">Generated messages &amp; metrics</h3>
+{% for msg in module.messages %}
+<div class="msg-block reveal">
+    <div class="msg-head">
+        <span class="msg-name">📄 {{ msg.name }}</span>
+        {% if msg.kind == 'table' %}
+        <span class="msg-tag">
+            {% if msg.total is not none %}{{ msg.total }} rows{% else %}table{% endif %}
+            {% if msg.truncated %} · showing first {{ msg.shown }}{% endif %}
+        </span>
+        {% else %}
+        <span class="msg-tag">text{% if msg.truncated %} · truncated{% endif %}</span>
+        {% endif %}
+        <a class="msg-open" href="{{ url_for('outputs_file', filename=msg.rel) }}" target="_blank" rel="noopener">open raw ↗</a>
+    </div>
+
+    {% if msg.kind == 'table' %}
+    <div class="table-wrap">
+        <table class="msg-table">
+            <thead>
+                <tr>{% for col in msg.headers %}<th>{{ col }}</th>{% endfor %}</tr>
+            </thead>
+            <tbody>
+                {% for row in msg.rows %}
+                <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+                {% else %}
+                <tr><td>No rows.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <pre class="msg-pre">{{ msg.text }}</pre>
+    {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if module.downloads %}
+<h3 class="gallery-sub reveal" style="margin-top:30px;">Trained models &amp; data files</h3>
+<div class="chip-row reveal">
+    {% for dl in module.downloads %}
+    <a class="chip cool" href="{{ url_for('outputs_file', filename=dl.rel) }}" download>{{ dl.name }}</a>
+    {% endfor %}
+</div>
+{% endif %}

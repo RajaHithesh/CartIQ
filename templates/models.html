@@ -10,44 +10,435 @@
 <section class="page-head">
    <div class="wrap">
        <span class="eyebrow rise">Machine learning</span>
-       <h1 class="rise" style="--d:.1s">Models, <span class="grad-text">coming soon</span></h1>
+       <h1 class="rise" style="--d:.1s">Fifteen models, <span class="grad-text">tuned &amp; evaluated</span></h1>
        <p class="lead rise" style="--d:.2s">
-           The data preprocessing pipeline is complete. Machine-learning
-           models will be trained on the final preprocessed dataset
-           (final_preprocess_M2.csv) and added to this page.
+           Pick a model by name below — its charts, metrics and messages open right there.
+           <b>All {{ total_models }} result sets</b> are listed, with no module headings to scroll past.
+           The Decision Tree, Random Forest and AdaBoost sections also include the
+           <b>GridSearchCV hyperparameter tuning</b> study (before vs after F1).
        </p>
    </div>
 </section>
 
 
-<section class="section">
-   <div class="wrap">
 
-       <ol class="steps reveal">
-           <li class="step">
-               <span class="step-num">✓</span>
-               <span>Data Understood</span>
-           </li>
-           <li class="step">
-               <span class="step-num">✓</span>
-               <span>Cleaned &amp; Encoded</span>
-           </li>
-           <li class="step">
-               <span class="step-num">✓</span>
-               <span>Final Dataset Ready</span>
-           </li>
-           <li class="step">
-               <span class="step-num">…</span>
-               <span>Model Training</span>
-           </li>
-           <li class="step">
-               <span class="step-num">…</span>
-               <span>Evaluation</span>
-           </li>
-       </ol>
+
+<!-- ================= MODEL NAME BAR ================= -->
+<section class="section" style="padding-top:6px;">
+   <div class="wrap">
+       <div class="model-nav reveal" id="modelNav">
+           <button type="button" class="viz-chip is-active" data-model="all">
+               ✨ All {{ total_models }}
+           </button>           {% for m in models %}
+           <button type="button" class="viz-chip" data-model="{{ m.key }}">{{ m.short }}</button>
+           {% endfor %}
+       </div>
+   </div>
+</section>
+
+
+
+
+<!-- ================= BEST MODEL ================= -->
+<section class="section" style="padding-top:6px;">
+   <div class="wrap">
+       <div class="best-banner reveal">
+           <div class="best-badge">✅ Best model</div>
+           <div class="best-body">
+               <h2>{{ best_model.name }} <span class="best-score">{{ best_model.headline }}</span></h2>
+               <ul class="best-reasons">
+                   {% for reason in best_model.reasons %}
+                   <li>{{ reason }}</li>
+                   {% endfor %}
+               </ul>
+               <p class="best-note">
+                   Comparison target class: <b>reordered</b> (binary) ·
+                   test set <b>10,000 rows</b> · identical 80/20 stratified split
+                   (<code>random_state&nbsp;=&nbsp;42</code>) for every model.
+               </p>
+           </div>
+       </div>
+   </div>
+</section>
+
+
+<!-- ================= COMPARISON TABLE ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap reveal">
+
+       <div class="cmp-head">
+           <span class="eyebrow">Table 1 · All models compared</span>
+           <h2>Classification models ranked by F1 score</h2>
+           <p>
+               Every model below predicts the same thing (<b>reordered</b>) on the same
+               untouched test set, so the scores are directly comparable.
+               Because 59.05% of the rows are already "reordered", a model that always
+               answers "reordered" scores {{ "%.4f"|format(baseline_accuracy) }} accuracy but only
+               {{ "%.4f"|format(baseline_f1) }} F1 — which is why <b>F1, not accuracy, decides the winner</b>.
+           </p>
+       </div>
+
+       <div class="table-wrap">
+           <table class="cmp-table">
+               <thead>
+                   <tr>
+                       <th>#</th>
+                       <th>Model</th>
+                       <th>Type</th>
+                       <th>Accuracy</th>
+                       <th>Precision</th>
+                       <th>Recall</th>
+                       <th>F1 Score</th>
+                       <th>Note</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for row in comparison %}
+                   <tr{% if row.best %} class="is-best"{% endif %}>
+                       <td>{{ loop.index }}</td>
+                       <td class="cmp-name">
+                           {% if row.best %}<span class="cmp-star">★</span>{% endif %}{{ row.model }}
+                       </td>
+                       <td>{{ row.kind }}</td>
+                       <td>{% if row.accuracy is not none %}{{ "%.4f"|format(row.accuracy) }}{% else %}—{% endif %}</td>
+                       <td>{{ "%.4f"|format(row.precision) }}</td>
+                       <td>{{ "%.4f"|format(row.recall) }}</td>
+                       <td class="cmp-f1">{{ "%.4f"|format(row.f1) }}</td>
+                       <td class="cmp-note">{{ row.note }}</td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+
+       <p class="cmp-foot">
+           Scores read directly from each module's own metrics file, for example
+           <code>outputs/Random_Forest_Tree_M3_Outputs/metrics/random_forest_metrics.csv</code>.
+           {{ multinomial_note }}
+       </p>
 
    </div>
 </section>
+
+
+
+
+<!-- ================= TABLE 2 - REGRESSION ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap reveal">
+
+       <div class="cmp-head">
+           <span class="eyebrow">Table 2 · Regression</span>
+           <h2>Predicting basket size</h2>
+           <p>
+               A different task: instead of yes/no, these models predict the <b>number of items</b>
+               in the basket. They are judged with error metrics, not F1.
+               <b>R² = 0.0108</b> means the linear model explains only about <b>1%</b> of the
+               variation in basket size — so basket size is <b>not</b> predictable from these
+               features. The regression part is a learning exercise; the classification side is
+               where the project performs well.
+           </p>
+       </div>
+
+       <div class="table-wrap">
+           <table class="cmp-table">
+               <thead>
+                   <tr>
+                       <th>Model</th><th>MAE</th><th>MSE</th><th>RMSE</th><th>R²</th><th>Note</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for row in regression %}
+                   <tr>
+                       <td class="cmp-name">{{ row.model }}</td>
+                       <td>{% if row.mae is not none %}{{ "%.4f"|format(row.mae) }}{% else %}—{% endif %}</td>
+                       <td>{{ "%.4f"|format(row.mse) }}</td>
+                       <td>{% if row.rmse is not none %}{{ "%.4f"|format(row.rmse) }}{% else %}—{% endif %}</td>
+                       <td class="cmp-f1">{% if row.r2 is not none %}{{ "%.4f"|format(row.r2) }}{% else %}—{% endif %}</td>
+                       <td class="cmp-note">{{ row.note }}</td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+
+       <p class="cmp-foot">
+           MAE = mean absolute error · MSE = mean squared error · RMSE = root mean squared error ·
+           R² = how much variation the model explains (1.0 is perfect, 0.0 is no better than
+           always guessing the average).
+       </p>
+
+   </div>
+</section>
+
+
+
+
+<!-- ================= TABLE 3 - UNSUPERVISED ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap reveal">
+
+       <div class="cmp-head">
+           <span class="eyebrow">Table 3 · Unsupervised</span>
+           <h2>Clustering and dimensionality reduction</h2>
+           <p>
+               These models have <b>no target label</b> to learn from, so they cannot predict
+               reorder. They are used to <b>group customers by shopping behaviour</b>
+               (K-Means, Hierarchical, DBSCAN) and to <b>compress and visualise</b> the 14
+               features (PCA, t-SNE). Higher silhouette = better separated clusters.
+           </p>
+       </div>
+
+       <div class="table-wrap">
+           <table class="cmp-table">
+               <thead>
+                   <tr><th>Model</th><th>Task</th><th>Key result</th></tr>
+               </thead>
+               <tbody>
+                   {% for row in unsupervised %}
+                   <tr>
+                       <td class="cmp-name">{{ row.model }}</td>
+                       <td>{{ row.task }}</td>
+                       <td class="cmp-note">{{ row.result }}</td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+
+       <p class="cmp-foot">
+           Silhouette score ranges from -1 to 1 (higher is better). Calinski-Harabasz and
+           Davies-Bouldin compare cluster quality between methods. DBSCAN's eps = 0.80 and
+           min_samples = 10 decide how dense a region must be to count as a cluster.
+       </p>
+
+   </div>
+</section>
+
+
+
+
+<!-- ================= TABLE 4 - HYPERPARAMETER TUNING ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap reveal">
+
+       <div class="cmp-head">
+           <span class="eyebrow">Table 4 · Hyperparameter tuning</span>
+           <h2>GridSearchCV — before vs after</h2>
+           <p>
+               Instead of guessing the settings, <b>GridSearchCV</b> tried every combination in a
+               grid and kept the one with the best <b>cross-validated F1</b>
+               (5-fold <code>StratifiedKFold</code>, <code>scoring="f1"</code> — 270 model fits in total).
+               Tuning used <b>only the training data</b>; the test set was opened once at the end.
+               The gains are small because the original hand-picked settings were already
+               close to optimal — a useful finding in itself.
+           </p>
+       </div>
+
+       <div class="table-wrap">
+           <table class="cmp-table">
+               <thead>
+                   <tr>
+                       <th>Model</th><th>Configurations</th><th>Total fits</th>
+                       <th>Before F1</th><th>After F1</th><th>Improvement</th>
+                       <th>Best parameters found</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for row in tuning %}
+                   <tr{% if row.after == 0.8093 %} class="is-best"{% endif %}>
+                       <td class="cmp-name">{{ row.model }}</td>
+                       <td>{{ row.configs }}</td>
+                       <td>{{ row.fits }}</td>
+                       <td>{{ "%.4f"|format(row.before) }}</td>
+                       <td class="cmp-f1">{{ "%.4f"|format(row.after) }}</td>
+                       <td>{{ "%+.4f"|format(row.improvement) }}</td>
+                       <td class="cmp-note"><code>{{ row.params }}</code></td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+
+       <p class="cmp-foot">
+           Full tuning artefacts: heatmaps, top-10 configuration charts and before/after
+           confusion matrices are in the <b>Hyperparameter Tuning (GridSearchCV)</b> section
+           below, and in <code>outputs/Hyperparameter_Tuning_GridSearch_M3_Outputs/</code>.
+       </p>
+
+   </div>
+</section>
+
+
+
+
+<!-- ================= QUICK REFERENCE ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap reveal">
+
+       <div class="cmp-head">
+           <span class="eyebrow">Overview</span>
+           <h2>Every model at a glance</h2>
+           <p>
+               Task, target and headline result for all fifteen models, including the
+               regression and clustering work that the four tables above cannot rank.
+           </p>
+       </div>
+
+       <div class="table-wrap">
+           <table>
+               <thead>
+                   <tr><th>Model</th><th>Task</th><th>Target</th><th>Key Result</th></tr>
+               </thead>
+               <tbody>
+                   <tr>
+                       <td>Linear Regression</td><td>Regression</td><td>basket_size</td>
+                       <td>MAE 0.75 · RMSE 0.97 · R² 0.011</td>
+                   </tr>
+                   <tr>
+                       <td>Normal Equation vs Gradient Descent</td><td>Regression</td><td>basket_size</td>
+                       <td>MSE ≈ 0.946 (both methods)</td>
+                   </tr>
+                   <tr>
+                       <td>Ridge / Lasso / Elastic Net</td><td>Regularisation</td><td>reordered</td>
+                       <td>Accuracy ≈ 69–70%</td>
+                   </tr>
+                   <tr>
+                       <td>Binary Logistic Regression</td><td>Classification</td><td>reordered</td>
+                       <td>Accuracy 69.07%</td>
+                   </tr>
+                   <tr>
+                       <td>Multinomial Logistic Regression</td><td>Multi-class</td><td>department (21)</td>
+                       <td>Accuracy 34%</td>
+                   </tr>
+                   <tr>
+                       <td>Decision Tree</td><td>Classification</td><td>reordered</td>
+                       <td>Accuracy 72.23% · F1 78.44%</td>
+                   </tr>
+                   <tr>
+                       <td>Random Forest</td><td>Ensemble</td><td>reordered</td>
+                       <td>Accuracy 72.98% · F1 80.00%</td>
+                   </tr>
+                   <tr>
+                       <td>AdaBoost</td><td>Ensemble</td><td>reordered</td>
+                       <td>Accuracy 73.28% · F1 79.15%</td>
+                   </tr>
+                   <tr>
+                       <td>K-Means / K-Means++</td><td>Clustering</td><td>shopping behaviour</td>
+                       <td>Best K = 3 · Silhouette 0.32 · Match 59.05%</td>
+                   </tr>
+                   <tr>
+                       <td>t-SNE</td><td>Dimensionality Reduction</td><td>14 numeric features</td>
+                       <td>2-D embedding · Perplexity 30 · KL converged</td>
+                   </tr>
+                   <tr>
+                       <td>PCA</td><td>Dimensionality Reduction</td><td>14 numeric features</td>
+                       <td>13 components for 95% variance</td>
+                   </tr>
+                   <tr>
+                       <td>DBSCAN (pre-processed)</td><td>Density Clustering</td><td>3 behaviour features</td>
+                       <td>7 clusters · eps 0.80 · 0% noise</td>
+                   </tr>
+                   <tr>
+                       <td>DBSCAN (raw dataset)</td><td>Density Clustering</td><td>3 behaviour features</td>
+                       <td>7 clusters · eps 0.80 · 3 209 rows dropped</td>
+                   </tr>
+                   <tr>
+                       <td>Hierarchical (Agg. + Divisive)</td><td>Clustering</td><td>4 behaviour features</td>
+                       <td>K = 3 · Divisive Silhouette 0.304 beats Agg. 0.248</td>
+                   </tr>
+                   <tr>
+                       <td>CV Decision Tree (M5)</td><td>5-Fold CV Classification</td><td>reordered</td>
+                       <td>F1 69.08% · ROC-AUC 0.681 · PR-AUC 0.700</td>
+                   </tr>
+                   <tr>
+                       <td>Hyperparameter Tuning (GridSearchCV)</td><td>Tuning study</td><td>reordered</td>
+                       <td>Random Forest F1 0.8000 → 0.8093 (270 fits · 5-fold CV)</td>
+                   </tr>
+               </tbody>
+           </table>
+       </div>
+
+   </div>
+</section>
+
+
+
+
+<!-- ================= EACH MODEL, BY NAME ================= -->
+{% for m in models %}
+<section class="section model-section" data-model="{{ m.key }}" style="padding-top:0;">
+   <div class="wrap">
+
+       <div class="section-title reveal" style="margin-top:44px;">
+           <span class="st-icon tint-mint">📌</span>
+           <div>
+               <h2>{{ m.short }}</h2>
+               <p>
+                   {{ m.module.blurb }}
+                   <span class="mt-meta">{{ m.n_images }} charts · {{ m.n_messages }} messages</span>
+               </p>
+           </div>
+       </div>
+
+       <div class="model-block reveal">
+           {% with module = m.module %}
+           {% include "_module_outputs.html" %}
+           {% endwith %}
+       </div>
+
+   </div>
+</section>
+{% endfor %}
+
+
+<section class="section" style="padding-top:0;">
+   <div class="wrap" style="text-align:center;">
+       <span class="eyebrow reveal"><span class="pulse-dot"></span> Pipeline status</span>
+       <ol class="steps reveal" style="margin-top:36px;">
+           <li class="step"><span class="step-num">✓</span><span>Data Understood</span></li>
+           <li class="step"><span class="step-num">✓</span><span>Cleaned &amp; Encoded</span></li>
+           <li class="step"><span class="step-num">✓</span><span>Final Dataset Ready</span></li>
+           <li class="step"><span class="step-num">✓</span><span>Models Trained</span></li>
+           <li class="step"><span class="step-num">✓</span><span>Evaluated</span></li>
+       </ol>
+       <p style="margin-top:26px;">
+           <a href="{{ url_for('prediction') }}" class="btn">Try a live prediction →</a>
+           <a href="{{ url_for('reports') }}" class="btn ghost" style="margin-left:12px;">Full results archive →</a>
+       </p>
+   </div>
+</section>
+
+
+<script>
+(function () {
+   var chips = Array.prototype.slice.call(document.querySelectorAll('#modelNav .viz-chip'));
+   var sections = Array.prototype.slice.call(document.querySelectorAll('.model-section'));
+   if (!chips.length) return;
+
+   function show(key) {
+       sections.forEach(function (sec) {
+           var visible = key === 'all' || sec.dataset.model === key;
+           sec.style.display = visible ? '' : 'none';
+           if (visible) {
+               sec.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+           }
+       });
+   }
+
+   chips.forEach(function (chip) {
+       chip.addEventListener('click', function () {
+           var key = chip.dataset.model;
+           chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
+           show(key);
+           if (key !== 'all') {
+               var target = document.querySelector('.model-section[data-model="' + key + '"]');
+               if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+           }
+       });
+   });
+})();
+</script>
 
 
 {% endblock %}

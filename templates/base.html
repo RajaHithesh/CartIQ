@@ -12,7 +12,7 @@
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=10">
 </head>
 
 <body>
@@ -38,11 +38,9 @@
            <a href="{{ url_for('preprocessing') }}" class="{{ 'active' if request.endpoint == 'preprocessing' }}">Preprocessing</a>
            <a href="{{ url_for('visualization') }}" class="{{ 'active' if request.endpoint == 'visualization' }}">Visualization</a>
            <a href="{{ url_for('models') }}"        class="{{ 'active' if request.endpoint == 'models' }}">ML Models</a>
-           <a href="{{ url_for('prediction') }}"    class="{{ 'active' if request.endpoint == 'prediction' }}">Prediction</a>
-           <a href="{{ url_for('dashboard') }}"     class="{{ 'active' if request.endpoint == 'dashboard' }}">Dashboard</a>
-           <a href="{{ url_for('reports') }}"       class="{{ 'active' if request.endpoint == 'reports' }}">Reports</a>
-           <a href="{{ url_for('contact') }}"       class="{{ 'active' if request.endpoint == 'contact' }}">Contact</a>
-       </nav>
+            <a href="{{ url_for('prediction') }}"    class="{{ 'active' if request.endpoint == 'prediction' }}">Prediction</a>
+             <a href="{{ url_for('reports') }}"       class="{{ 'active' if request.endpoint == 'reports' }}">Reports</a>
+        </nav>
    </header>
 
    <main>
@@ -74,7 +72,7 @@
                revealEls.forEach(function (el) { io.observe(el); });
            }
 
-           /* Count-up numbers for dashboard stats */
+            /* Count-up numbers for the key stats */
            document.querySelectorAll("[data-count]").forEach(function (el) {
                var target = parseFloat(el.getAttribute("data-count"));
                var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);

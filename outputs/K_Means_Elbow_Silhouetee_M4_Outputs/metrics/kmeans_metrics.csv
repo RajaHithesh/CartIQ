@@ -1,0 +1,5 @@
+Metric,Value
+Algorithm,K-Means
+Number of Clusters,3
+Inertia,114111.43966972592
+Silhouette Score,0.32186623986564117

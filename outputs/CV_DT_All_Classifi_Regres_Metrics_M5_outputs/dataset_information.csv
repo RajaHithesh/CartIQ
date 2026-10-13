@@ -1,0 +1,10 @@
+Parameter,Value
+Original Rows,50000
+Original Columns,14
+Working Rows,50000
+Working Columns,14
+Target Column,reordered
+Target Recovery,(scaled value > 0) -> 1 else 0
+Number of Classes,2
+Number of Features,13
+Duplicate Rows Removed,0

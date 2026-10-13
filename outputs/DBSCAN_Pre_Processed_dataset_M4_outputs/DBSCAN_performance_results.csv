@@ -1,0 +1,16 @@
+Metric,Value
+Algorithm,DBSCAN
+Input Dataset,final_preprocess_M2.csv
+Original Dataset Rows,50000
+Rows Used,50000
+Rows Removed,0
+Number of Features,3
+Features Used,"order_hour_of_day, days_since_prior_order, basket_size"
+Scaling Method,StandardScaler
+DBSCAN eps,0.8
+DBSCAN min_samples,10
+Number of Clusters,7
+Noise Points,0
+Clustered Points,50000
+Noise Percentage,0.0
+Clustered Percentage,100.0

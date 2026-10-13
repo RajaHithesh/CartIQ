@@ -1,0 +1,16 @@
+Parameter,Value
+Input Dataset,D:/ML/CartIQ/dataset/final_preprocess_M2.csv
+Original Number of Records,50000
+Original Number of Columns,14
+Numeric Features Used,14
+Constant Features Removed,0
+Missing Values Before Processing,0
+Missing Values After Processing,0
+t-SNE Output Dimensions,2
+Perplexity,30
+Learning Rate,auto
+Maximum Iterations,1000
+Initialization,PCA
+Random State,42
+KL Divergence,3.155179977416992
+Final Iteration Count,999

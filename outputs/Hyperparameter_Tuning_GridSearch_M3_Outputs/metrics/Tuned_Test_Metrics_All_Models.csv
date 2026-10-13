@@ -1,0 +1,7 @@
+Model,Stage,Accuracy,Precision,Recall,F1
+Decision Tree,Before tuning (fixed params),0.7223,0.7241,0.8557,0.7844
+Decision Tree,After tuning (GridSearchCV),0.727,0.7214,0.8759,0.7912
+Random Forest,Before tuning (fixed params),0.7298,0.7105,0.9153,0.8
+Random Forest,After tuning (GridSearchCV),0.7588,0.759,0.8667,0.8093
+AdaBoost,Before tuning (fixed params),0.7328,0.7339,0.8589,0.7915
+AdaBoost,After tuning (GridSearchCV),0.7374,0.7388,0.8589,0.7944

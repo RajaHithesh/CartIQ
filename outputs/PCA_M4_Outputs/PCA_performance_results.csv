@@ -1,0 +1,16 @@
+Metric,Value
+Input Dataset,final_preprocess_M2.csv
+Original Number of Rows,50000
+Original Number of Columns,14
+Number of Numeric Features,14
+Number of PCA Components,14
+Components for 80% Variance,10
+Components for 90% Variance,12
+Components for 95% Variance,13
+PCA Components Retained at 95%,13
+First Principal Component Variance (%),12.3758
+Total Variance Explained (%),100.0
+Missing Values Before Processing,0
+Missing Values After Processing,0
+Standardization Applied,Yes - StandardScaler
+Original Dataset Modified,NO

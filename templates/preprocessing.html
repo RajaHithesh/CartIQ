@@ -4,68 +4,221 @@
 {% block title %}Preprocessing{% endblock %}
 
 
+{% macro preview_table(s) %}
+<div class="stage-preview">
+   <div class="stage-preview-head">
+       <span class="file-name">📄 {{ s.file }}</span>
+       <span class="file-meta">{{ s.total_cols }} columns · first {{ s.rows|length }} rows</span>
+   </div>
+   <div class="table-wrap mini-wrap">
+       <table class="mini-table">
+           <thead>
+               <tr>
+                   {% for c in s.columns %}<th>{{ c }}</th>{% endfor %}
+                   {% if s.hidden_cols %}<th class="more-col">+{{ s.hidden_cols }}</th>{% endif %}
+               </tr>
+           </thead>
+           <tbody>
+               {% for row in s.rows %}
+               <tr>
+                   {% for cell in row %}<td>{{ cell }}</td>{% endfor %}
+                   {% if s.hidden_cols %}<td class="more-col">…</td>{% endif %}
+               </tr>
+               {% endfor %}
+           </tbody>
+       </table>
+   </div>
+   <div class="stage-actions">
+       <a class="btn ghost sm" target="_blank" rel="noopener"
+          href="{{ url_for('preprocessing_file', filename=s.file) }}">Open CSV ↗</a>
+       <a class="btn sm"
+          href="{{ url_for('preprocessing_file', filename=s.file, download=1) }}">Download</a>
+   </div>
+</div>
+{% endmacro %}
+
+
 {% block content %}
 
 
 <section class="page-head">
    <div class="wrap">
-       <span class="eyebrow rise">Data preparation</span>
+       <span class="eyebrow rise"><span class="pulse-dot"></span> Data preparation</span>
        <h1 class="rise" style="--d:.1s">From raw orders to <span class="grad-text">model-ready data</span></h1>
        <p class="lead rise" style="--d:.2s">
-           Every raw column is cleaned, scaled and encoded by scripts in the
-           src folder before any modelling begins.
+           Watch the data change shape at every step — cleaning, then encoding,
+           then scaling — until one clean numeric file comes out the other side.
        </p>
    </div>
 </section>
 
 
-<section class="section">
-   <div class="wrap grid grid-2">
 
-       <div class="card reveal">
-           <div class="icon-chip tint-peach">🩹</div>
-           <h3>Missing Value Handling</h3>
-           <p>Deletion, mean, median and model-based imputation plus missing
-              indicators — days_since_prior_order is the only column with nulls.</p>
-       </div>
 
-       <div class="card reveal" style="--d:.08s">
-           <div class="icon-chip tint-sky">⚖️</div>
-           <h3>Feature Scaling</h3>
-           <p>Standardization (Z-score), Min-Max scaling and L2 normalization
-              bring every numeric feature onto a fair footing.</p>
-       </div>
+<!-- ================= PIPELINE OVERVIEW ================= -->
+<section class="section" style="padding-top:6px;">
+   <div class="wrap">
 
-       <div class="card reveal" style="--d:.16s">
-           <div class="icon-chip tint-lilac">🔤</div>
-           <h3>Categorical Encoding</h3>
-           <p>Label, One-Hot, Ordinal, Target and embedding-style encoding for
-              aisle, department and eval_set.</p>
-       </div>
-
-       <div class="card reveal" style="--d:.24s">
-           <div class="icon-chip tint-mint">✅</div>
-           <h3>Final Dataset</h3>
-           <p>All steps converge into one fully numeric file, ready for
-              machine learning.</p>
+       <div class="flow reveal">
+           {% for s in stages %}
+           <div class="flow-node">
+               <span class="flow-num">{{ s.step }}</span>
+               <span class="flow-icon">{{ s.icon }}</span>
+               <span class="flow-title">{{ s.title }}</span>
+           </div>
+           <span class="flow-arrow">➜</span>
+           {% endfor %}
+           <div class="flow-node is-final">
+               <span class="flow-num">{{ final_stage.step }}</span>
+               <span class="flow-icon">{{ final_stage.icon }}</span>
+               <span class="flow-title">{{ final_stage.title }}</span>
+           </div>
        </div>
 
    </div>
 </section>
 
 
+
+
+<!-- ================= VARIANTS ================= -->
 <section class="section" style="padding-top:0;">
-   <div class="wrap reveal">
-       <div class="chip-row">
-           <span class="chip">📄 clean_del_mean_model_M2.csv</span>
-           <span class="chip">📄 clean_minmax_stand_norma_M2.csv</span>
-           <span class="chip">📄 clean_label_encode_M2.csv</span>
-           <span class="chip">📄 clean_ordinal_encode_M2.csv</span>
-           <span class="chip">📄 clean_one_hot_encoding_M2.csv</span>
-           <span class="chip">📄 clean_target_encode_M2.csv</span>
-           <span class="chip">📄 clean_embedded_encode_M2.csv</span>
+   <div class="wrap">
+
+       <span class="eyebrow reveal">Breadth of work</span>
+       <h2 class="section-head reveal" style="--d:.05s">Every variant we produced</h2>
+       <p class="lead reveal" style="--d:.1s; margin-top:12px; max-width:720px;">
+           Cleaning, encoding and scaling were each studied more than one way —
+           every method was saved so the final choice is justified, not guessed.
+       </p>
+
+       <div class="chip-row reveal" style="--d:.15s; margin-top:26px;">
+           <span class="chip">🧼 clean_del_mean_model_M2.csv</span>
+           <span class="chip">⚖️ clean_minmax_stand_norma_M2.csv</span>
+           <span class="chip">🔤 clean_label_encode_M2.csv</span>
+           <span class="chip">🔤 clean_ordinal_encode_M2.csv</span>
+           <span class="chip">🔤 clean_one_hot_encoding_M2.csv</span>
+           <span class="chip">🔤 clean_target_encode_M2.csv</span>
+           <span class="chip">🔤 clean_embedded_encode_M2.csv</span>
            <span class="chip alt">⭐ final_preprocess_M2.csv</span>
        </div>
+
+   </div>
+</section>
+
+
+
+
+<!-- ================= STAGE BY STAGE ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap">
+
+       <span class="eyebrow reveal">Step by step</span>
+       <h2 class="section-head reveal" style="--d:.05s">The data, at every stage</h2>
+
+       <div class="stages" style="margin-top:34px;">
+
+           {% for s in stages %}
+           <article class="stage reveal" style="--d:{{ '%.2f' % (loop.index0 * 0.06) }}s">
+
+               <div class="stage-info">
+                   <div class="stage-head">
+                       <span class="stage-badge {{ s.tone }}">{{ s.icon }}</span>
+                       <div>
+                           <span class="stage-step">Step {{ s.step }}</span>
+                           <h3>{{ s.title }}</h3>
+                       </div>
+                   </div>
+
+                   <p class="stage-summary">{{ s.summary }}</p>
+
+                   <ul class="stage-changes">
+                       {% for c in s.changes %}<li>{{ c }}</li>{% endfor %}
+                   </ul>
+
+                   <p class="stage-script">🔧 {{ s.script }}</p>
+               </div>
+
+               {{ preview_table(s) }}
+
+           </article>
+           {% endfor %}
+
+       </div>
+
+   </div>
+</section>
+
+
+
+
+<!-- ================= THE FINAL FILE (last) ================= -->
+<section class="section" style="padding-top:0;">
+   <div class="wrap">
+
+       <span class="eyebrow reveal"><span class="pulse-dot"></span> The outcome</span>
+       <h2 class="section-head reveal" style="--d:.05s">The final preprocessed file</h2>
+
+       <div class="final-card reveal" style="--d:.1s; margin-top:34px;">
+
+           <div class="final-copy">
+               <h3 style="font-size:1.2rem;">Inside <span class="grad-text">final_preprocess_M2.csv</span></h3>
+
+               <p>
+                   This is the one file the whole project agrees on. The same
+                   <b>{{ "{:,}".format(total_rows) }}</b> orders and the same
+                   <b>14 columns</b> as the raw data — nothing added, nothing lost —
+                   only made clean, numeric and fair.
+               </p>
+
+               <ul class="final-points">
+                   <li><b>Every gap closed</b> — the 3,209 missing values in <i>days_since_prior_order</i> are filled with the median.</li>
+                   <li><b>Every text column turned into numbers</b>, so the models can actually read them.</li>
+                   <li><b>Numeric columns standardized</b> (mean 0, standard deviation 1) so no single feature dominates.</li>
+                   <li><b>Checked before saving</b> — 0 missing values, 0 duplicates, 100% numeric.</li>
+                   <li><b>Rebuilt by one script</b> — <code>final_preprocess_M2.py</code> regenerates it from raw on demand.</li>
+               </ul>
+
+               <div class="stage-actions">
+                   <a class="btn" target="_blank" rel="noopener"
+                      href="{{ url_for('preprocessing_file', filename=final_stage.file) }}">Open final file ↗</a>
+                   <a class="btn ghost"
+                      href="{{ url_for('preprocessing_file', filename=final_stage.file, download=1) }}">Download CSV</a>
+               </div>
+           </div>
+
+           <div class="final-compare">
+               <div class="compare-card">
+                   <span class="compare-tag before">Before</span>
+                   <h4>Raw basket file</h4>
+                   <ul>
+                       <li>14 columns · mixed text + numbers</li>
+                       <li>3,209 missing values</li>
+                       <li>unscaled, uneven ranges</li>
+                       <li>unusable directly by a model</li>
+                   </ul>
+               </div>
+
+               <span class="compare-arrow">➜</span>
+
+               <div class="compare-card after">
+                   <span class="compare-tag after">After</span>
+                   <h4>final_preprocess_M2.csv</h4>
+                   <ul>
+                       <li>14 columns · 100% numeric</li>
+                       <li>0 missing values</li>
+                       <li>standardized (mean 0, std 1)</li>
+                       <li>model-ready in one read</li>
+                   </ul>
+               </div>
+           </div>
+
+       </div>
+
+       <div class="reveal" style="--d:.15s; margin-top:24px;">
+           {{ preview_table(final_stage) }}
+       </div>
+
    </div>
 </section>
 
